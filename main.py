@@ -1,14 +1,17 @@
 import time
-
 import numpy as np
 from flask import Flask, render_template
 import pandas as pd
-from datetime import datetime
+
+
 app = Flask(__name__)
+
 
 @app.route("/")
 def home():
-    return render_template("home.html")
+    station_list = pd.read_csv("weather_data/stations.txt", skiprows=17)
+    station_list = station_list[['STAID','STANAME                                 ']]
+    return render_template("home.html",data=station_list.to_html())
 
 @app.route("/api/v1/<station>/<date>")
 def about(station, date):

@@ -46,11 +46,7 @@ def get_yearly(station, year):
         data["    DATE"] = data["    DATE"].astype(str)
         data["   TG"] = data["   TG"].mask(data["   TG"] == -9999, np.nan)
         result = data[data["    DATE"].str.startswith(str(year))]
-
         return result.to_dict(orient="records")
-
-
-
     except FileNotFoundError as f:
         return "Station not found"
 
